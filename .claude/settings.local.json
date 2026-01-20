@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__echowebsite__list_allowed_directories",
+      "mcp__echoPaywebsite__list_allowed_directories",
+      "mcp__echoPaywebsite__list_directory",
+      "mcp__echowebsite__list_directory",
+      "mcp__echoPaywebsite__directory_tree",
+      "mcp__echoPaywebsite__read_text_file",
+      "mcp__echowebsite__directory_tree",
+      "mcp__echowebsite__read_text_file",
+      "Bash(dir:*)",
+      "Bash(xcopy:*)",
+      "Bash(robocopy:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(tree:*)"
+    ]
+  }
+}

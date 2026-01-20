@@ -1,0 +1,17 @@
+{
+    "name": "echoesport/gaming-platform",
+    "description": "Echo Esports - Professional Gaming Companion Platform",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.0",
+        "ext-pdo": "*",
+        "ext-mysqli": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-session": "*"
+    },
+    "require-dev": {
+        "heroku/heroku-buildpack-php": "*"
+    }
+}
