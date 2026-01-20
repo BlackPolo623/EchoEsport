@@ -15,30 +15,35 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== 載入畫面控制 =====
 function initLoadingScreen() {
     const loadingScreen = document.querySelector('.loading-screen');
+    const mainContent = document.querySelector('.main-content');
 
     if (!loadingScreen) return;
 
+    // 顯示主內容的函數
+    function showMainContent() {
+        loadingScreen.classList.add('hidden');
+        if (mainContent) {
+            mainContent.classList.add('visible');
+        }
+
+        // 完全移除載入畫面以避免影響頁面交互
+        setTimeout(function() {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }
+
     // 確保所有資源載入完成後再隱藏
     window.addEventListener('load', function() {
-        setTimeout(function() {
-            loadingScreen.classList.add('hidden');
-
-            // 完全移除載入畫面以避免影響頁面交互
-            setTimeout(function() {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }, 500); // 延遲 500ms 顯示載入效果
+        setTimeout(showMainContent, 500);
     });
 
-    // 如果頁面載入時間過長（超過5秒），強制隱藏載入畫面
+    // 如果頁面載入時間過長（超過3秒），強制隱藏載入畫面
     setTimeout(function() {
         if (!loadingScreen.classList.contains('hidden')) {
-            loadingScreen.classList.add('hidden');
-            setTimeout(function() {
-                loadingScreen.style.display = 'none';
-            }, 500);
+            console.log('Loading timeout - forcing display of main content');
+            showMainContent();
         }
-    }, 5000);
+    }, 3000); // 改為 3 秒
 }
 
 // ===== 導航欄滾動效果 =====
