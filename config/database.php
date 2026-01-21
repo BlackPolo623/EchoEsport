@@ -23,7 +23,7 @@ class Database {
             } elseif (getenv('MYSQLDATABASE')) {
                 // Railway MySQL (分開的環境變數)
                 $host = getenv('MYSQLHOST');
-                $username = getenv('MYSQLUSER');
+                $username = getenv('MYSQLUSER') ?: 'root'; // Railway 預設用 root
                 $password = getenv('MYSQLPASSWORD');
                 $database = getenv('MYSQLDATABASE');
                 $port = getenv('MYSQLPORT') ?: 3306;
