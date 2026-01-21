@@ -1,10 +1,12 @@
 FROM php:8.3-cli
 
-# 安裝 MySQL 擴展
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+# 安裝系統依賴
+RUN apt-get update && apt-get install -y \
+    libonig-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# 安裝其他需要的擴展
-RUN docker-php-ext-install mbstring
+# 安裝 PHP 擴展
+RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring
 
 # 設定工作目錄
 WORKDIR /app
