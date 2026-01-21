@@ -1,0 +1,14 @@
+{
+    auto_https off
+    admin off
+}
+
+:{$PORT:8000} {
+    root * .
+
+    php_server
+
+    file_server
+
+    encode gzip
+}
