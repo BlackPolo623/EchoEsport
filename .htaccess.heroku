@@ -1,0 +1,94 @@
+# ===== Apache 配置文件 =====
+
+# 啟用 Rewrite 引擎
+RewriteEngine On
+
+# 強制 HTTPS (如果在生產環境)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 禁止直接訪問 .htaccess 文件
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# 保護敏感文件
+<FilesMatch "\.(ini|log|conf|db|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 保護 config 目錄
+RedirectMatch 403 ^/config/
+
+# 友好的 URL 重寫規則
+# 如果文件或目錄存在，直接訪問
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 移除 .php 擴展名（可選）
+# RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]
+
+# 自定義錯誤頁面
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
+ErrorDocument 500 /500.html
+
+# 設置默認字符編碼
+AddDefaultCharset UTF-8
+
+# 啟用壓縮
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json
+</IfModule>
+
+# 設置緩存
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType video/webm "access plus 1 year"
+</IfModule>
+
+# 安全性設置
+<IfModule mod_headers.c>
+    # 防止 XSS 攻擊
+    Header set X-XSS-Protection "1; mode=block"
+
+    # 防止 Clickjacking
+    Header always append X-Frame-Options SAMEORIGIN
+
+    # 防止 MIME 類型嗅探
+    Header set X-Content-Type-Options "nosniff"
+
+    # 啟用 HSTS (僅在使用 HTTPS 時)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # 設置推薦人政策
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 禁止目錄瀏覽
+Options -Indexes
+
+# 設置默認首頁
+DirectoryIndex index.php index.html
+
+# PHP 設置（如果允許的話）
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 256M
+</IfModule>

@@ -108,42 +108,56 @@
 6. **訪問網站**
    - 打開瀏覽器訪問 `http://localhost:8000`
 
-### Heroku 部署
+### Railway 部署 ⭐ 推薦
+
+Railway.app 提供簡單快速的部署體驗，每月 $5 免費額度，適合這個專案使用。
+
+**快速部署（5分鐘）**
+
+1. **註冊並建立專案**
+   - 前往 [Railway.app](https://railway.app/)
+   - 使用 GitHub 登入
+   - Deploy from GitHub repo → 選擇此專案
+
+2. **新增 MySQL 資料庫**
+   - 點擊 "New" → "Database" → "Add MySQL"
+   - 等待資料庫啟動完成
+
+3. **匯入資料庫結構**
+   - 在 MySQL 服務的 Variables 分頁取得連線資訊
+   - 使用 Navicat 連線並執行 `database_heroku.sql`
+
+4. **取得網站網址**
+   - Settings → Domains → Generate Domain
+   - 開啟網址測試
+
+**詳細步驟：** 請參閱 `RAILWAY_DEPLOYMENT.md` 或 `QUICK_START_RAILWAY.md`
+
+---
+
+### Heroku 部署（替代方案）
+
+如果偏好使用 Heroku，請參考以下步驟：
 
 1. **安裝 Heroku CLI**
-   - 訪問 [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) 下載安裝
-
-2. **登入 Heroku**
    ```bash
    heroku login
    ```
 
-3. **建立 Heroku 應用**
+2. **建立應用並添加資料庫**
    ```bash
    heroku create your-app-name
+   heroku addons:create jawsdb:kitefin
    ```
 
-4. **添加 MySQL 插件**
-   ```bash
-   heroku addons:create cleardb:ignite
-   ```
-
-5. **設置環境變數**
-   ```bash
-   heroku config:set PHP_VERSION=8.0
-   ```
-
-6. **部署到 Heroku**
+3. **部署**
    ```bash
    git add .
-   git commit -m "Initial commit"
+   git commit -m "Deploy to Heroku"
    git push heroku main
    ```
 
-7. **打開應用**
-   ```bash
-   heroku open
-   ```
+**注意：** Heroku 專用檔案已重新命名為 `Procfile.heroku` 和 `.htaccess.heroku`，如需使用請先重新命名。
 
 ## 資料庫設定
 

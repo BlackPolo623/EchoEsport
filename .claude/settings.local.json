@@ -13,7 +13,9 @@
       "Bash(xcopy:*)",
       "Bash(robocopy:*)",
       "Bash(powershell -Command:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(ren:*)",
+      "Bash(git add:*)"
     ]
   }
 }

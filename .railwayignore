@@ -1,0 +1,36 @@
+# Railway 部署時忽略的檔案
+
+# Heroku 專用檔案（已不需要）
+Procfile.heroku
+.htaccess.heroku
+
+# 文件檔案（不影響運作）
+*.md
+!README.md
+
+# Git 相關
+.git
+.gitignore
+
+# IDE 設定
+.idea
+.vscode
+*.swp
+*.swo
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+# 測試檔案
+debug.php
+test.php
+
+# 本地環境變數
+.env.local
+.env.development
+
+# 快取檔案
+*.cache
+tmp/
+cache/
