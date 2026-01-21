@@ -89,13 +89,13 @@ if ($is_logged_in) {
         $stats['today_orders'] = $stmt->fetch()['count'];
 
         // 總營業額
-        $query = "SELECT SUM(amount) as total FROM orders WHERE status IN ('paid', 'processing', 'completed')";
+        $query = "SELECT SUM(amount) as total FROM orders WHERE payment_status = 'paid' AND order_status IN ('processing', 'completed')";
         $stmt = $db->query($query);
         $stats['total_revenue'] = $stmt->fetch()['total'] ?? 0;
 
         // 本月營業額
         $query = "SELECT SUM(amount) as total FROM orders
-                  WHERE status IN ('paid', 'processing', 'completed')
+                  WHERE payment_status = 'paid' AND order_status IN ('processing', 'completed')
                   AND YEAR(created_at) = YEAR(CURDATE())
                   AND MONTH(created_at) = MONTH(CURDATE())";
         $stmt = $db->query($query);
@@ -112,7 +112,7 @@ if ($is_logged_in) {
         $stats['today_members'] = $stmt->fetch()['count'];
 
         // 待處理訂單
-        $query = "SELECT COUNT(*) as count FROM orders WHERE status = 'paid'";
+        $query = "SELECT COUNT(*) as count FROM orders WHERE payment_status = 'paid' AND order_status = 'new'";
         $stmt = $db->query($query);
         $stats['pending_orders'] = $stmt->fetch()['count'];
 

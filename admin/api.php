@@ -240,13 +240,13 @@ try {
             $stats['today_orders'] = $stmt->fetch()['count'];
 
             // 總營業額
-            $query = "SELECT SUM(amount) as total FROM orders WHERE status IN ('paid', 'processing', 'completed')";
+            $query = "SELECT SUM(amount) as total FROM orders WHERE payment_status = 'paid' AND order_status IN ('processing', 'completed')";
             $stmt = $db->query($query);
             $stats['total_revenue'] = $stmt->fetch()['total'] ?? 0;
 
             // 本月營業額
             $query = "SELECT SUM(amount) as total FROM orders
-                      WHERE status IN ('paid', 'processing', 'completed')
+                      WHERE payment_status = 'paid' AND order_status IN ('processing', 'completed')
                       AND YEAR(created_at) = YEAR(CURDATE())
                       AND MONTH(created_at) = MONTH(CURDATE())";
             $stmt = $db->query($query);
@@ -263,14 +263,14 @@ try {
             $stats['today_members'] = $stmt->fetch()['count'];
 
             // 待處理訂單
-            $query = "SELECT COUNT(*) as count FROM orders WHERE status = 'paid'";
+            $query = "SELECT COUNT(*) as count FROM orders WHERE payment_status = 'paid' AND order_status = 'new'";
             $stmt = $db->query($query);
             $stats['pending_orders'] = $stmt->fetch()['count'];
 
             // 各狀態訂單數
-            $query = "SELECT status, COUNT(*) as count
+            $query = "SELECT order_status as status, COUNT(*) as count
                       FROM orders
-                      GROUP BY status";
+                      GROUP BY order_status";
             $stmt = $db->query($query);
             $status_counts = [];
             while ($row = $stmt->fetch()) {
@@ -281,7 +281,7 @@ try {
             // 本週每日營業額
             $query = "SELECT DATE(created_at) as date, SUM(amount) as total
                       FROM orders
-                      WHERE status IN ('paid', 'processing', 'completed')
+                      WHERE payment_status = 'paid' AND order_status IN ('processing', 'completed')
                       AND created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
                       GROUP BY DATE(created_at)
                       ORDER BY date";
