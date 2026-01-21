@@ -1,8 +1,5 @@
 [phases.setup]
-nixPkgs = ["php82", "php82Extensions.mysqli", "php82Extensions.pdo", "php82Extensions.pdo_mysql", "php82Extensions.mbstring", "php82Extensions.openssl"]
-
-[phases.install]
-cmds = ["echo 'Installing dependencies...'"]
+nixPkgs = ["php83", "php83Extensions.mysqli", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.mbstring", "php83Extensions.openssl"]
 
 [start]
 cmd = "php -S 0.0.0.0:$PORT -t ."

@@ -15,7 +15,11 @@
       "Bash(powershell -Command:*)",
       "Bash(tree:*)",
       "Bash(ren:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ]
   }
 }
