@@ -1,0 +1,49 @@
+# 環境設定檔案
+.env
+.env.local
+.env.*.local
+
+# 金流配置（包含敏感資訊）
+config/payment.config.php
+
+# 日誌檔案
+logs/
+*.log
+
+# 快取檔案
+cache/
+*.cache
+
+# 上傳檔案
+uploads/
+temp/
+
+# 作業系統檔案
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 設定檔案
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 資料庫備份
+*.sql
+*.sql.gz
+*.dump
+
+# 測試檔案
+*_test.php
+phpinfo_test.php
+db_test.php
+
+# Node modules (如果使用)
+node_modules/
+package-lock.json
+
+# Composer (如果使用)
+vendor/
+composer.lock

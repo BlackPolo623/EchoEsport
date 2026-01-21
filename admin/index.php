@@ -136,207 +136,25 @@ if ($is_logged_in) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $is_logged_in ? '管理後台' : '管理員登入'; ?> - 迴響電競</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin-dark.css">
     <style>
-        /* 管理後台專用樣式 */
-        body {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        /* 登入頁面 */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .login-box {
-            max-width: 400px;
-            width: 100%;
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .login-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            text-align: center;
-            color: #667eea;
-        }
-
-        .login-subtitle {
-            text-align: center;
-            color: #999;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
+        /* 自定義額外樣式（暗色主題已在 admin-dark.css 中定義） */
+        .stat-label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: #667eea;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .alert {
-            padding: 12px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            background: #fee;
-            border: 1px solid #fcc;
-            color: #c33;
-        }
-
-        /* 儀表板 */
-        .admin-header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            margin-bottom: 30px;
-        }
-
-        .admin-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .admin-menu {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .admin-menu a {
-            color: #666;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .admin-menu a:hover,
-        .admin-menu a.active {
-            background: #f0f0f0;
-            color: #667eea;
-        }
-
-        .admin-user {
-            color: #666;
-        }
-
-        .logout-btn {
-            color: #e74c3c;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
-        }
-
-        .dashboard-title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-card.primary { border-top: 4px solid #667eea; }
-        .stat-card.success { border-top: 4px solid #4caf50; }
-        .stat-card.warning { border-top: 4px solid #ff9800; }
-        .stat-card.info { border-top: 4px solid #2196f3; }
-
-        .stat-label {
-            color: #999;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
         }
 
         .stat-subtext {
-            color: #999;
-            font-size: 0.85rem;
-            margin-top: 5px;
+            margin-top: 8px;
+            font-size: 13px;
         }
 
         .section-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            background: var(--admin-bg-card);
+            border: 1px solid var(--admin-border);
+            border-radius: var(--admin-radius-lg);
+            padding: 24px;
+            margin-bottom: 32px;
         }
 
         .section-header {
@@ -344,11 +162,8 @@ if ($is_logged_in) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            color: #333;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--admin-border-light);
         }
 
         .table {
@@ -357,43 +172,47 @@ if ($is_logged_in) {
         }
 
         .table thead {
-            background: #f5f5f5;
+            background: var(--admin-bg-lighter);
         }
 
         .table th,
         .table td {
-            padding: 12px 15px;
+            padding: 14px 16px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--admin-border-light);
         }
 
         .table th {
             font-weight: 600;
-            color: #666;
+            color: var(--admin-text);
+            font-size: 13px;
+            text-transform: uppercase;
         }
 
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
+        .table td {
+            color: var(--admin-text-secondary);
         }
 
-        .status-pending { background: #fff3cd; color: #856404; }
-        .status-paid { background: #d4edda; color: #155724; }
-        .status-processing { background: #d1ecf1; color: #0c5460; }
-        .status-completed { background: #d4edda; color: #155724; }
-        .status-cancelled { background: #f8d7da; color: #721c24; }
-        .status-failed { background: #f8d7da; color: #721c24; }
+        .table tbody tr:hover {
+            background: var(--admin-bg-hover);
+        }
 
         .btn-link {
-            color: #667eea;
+            color: var(--admin-primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .btn-link:hover {
             text-decoration: underline;
+            color: var(--admin-primary-light);
+        }
+
+        .admin-user-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
     </style>
 </head>
@@ -440,44 +259,56 @@ if ($is_logged_in) {
                 <li><a href="orders.php">訂單管理</a></li>
                 <li><a href="members.php">會員管理</a></li>
             </ul>
-            <div class="admin-user">
-                <span><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
+            <div class="admin-user-section">
+                <span class="admin-user"><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
                 <a href="?action=logout" class="logout-btn">登出</a>
             </div>
         </nav>
     </header>
 
-    <div class="admin-container">
+    <div class="admin-content">
         <h1 class="dashboard-title">儀表板</h1>
 
         <?php if (isset($error)): ?>
-            <div class="alert"><?php echo htmlspecialchars($error); ?></div>
+            <div class="alert alert-error"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
         <!-- 統計卡片 -->
         <div class="stats-grid">
-            <div class="stat-card primary">
-                <div class="stat-label">總訂單數</div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">總訂單數</div>
+                    <div class="stat-icon">📦</div>
+                </div>
                 <div class="stat-value"><?php echo number_format($stats['total_orders']); ?></div>
-                <div class="stat-subtext">今日新增 <?php echo $stats['today_orders']; ?> 筆</div>
+                <div class="stat-change">今日新增 <?php echo $stats['today_orders']; ?> 筆</div>
             </div>
 
-            <div class="stat-card success">
-                <div class="stat-label">總營業額</div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">總營業額</div>
+                    <div class="stat-icon">💰</div>
+                </div>
                 <div class="stat-value">NT$ <?php echo number_format($stats['total_revenue']); ?></div>
-                <div class="stat-subtext">本月 NT$ <?php echo number_format($stats['month_revenue']); ?></div>
+                <div class="stat-change">本月 NT$ <?php echo number_format($stats['month_revenue']); ?></div>
             </div>
 
-            <div class="stat-card info">
-                <div class="stat-label">會員數</div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">會員數</div>
+                    <div class="stat-icon">👥</div>
+                </div>
                 <div class="stat-value"><?php echo number_format($stats['total_members']); ?></div>
-                <div class="stat-subtext">今日新增 <?php echo $stats['today_members']; ?> 人</div>
+                <div class="stat-change">今日新增 <?php echo $stats['today_members']; ?> 人</div>
             </div>
 
-            <div class="stat-card warning">
-                <div class="stat-label">待處理訂單</div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">待處理訂單</div>
+                    <div class="stat-icon">⚠️</div>
+                </div>
                 <div class="stat-value"><?php echo number_format($stats['pending_orders']); ?></div>
-                <div class="stat-subtext">需要立即處理</div>
+                <div class="stat-change">需要立即處理</div>
             </div>
         </div>
 
@@ -488,7 +319,7 @@ if ($is_logged_in) {
                 <a href="orders.php" class="btn-link">查看全部 →</a>
             </div>
 
-            <table class="table">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>訂單編號</th>
