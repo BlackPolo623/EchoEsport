@@ -1,12 +1,13 @@
 [phases.setup]
-nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.mysqli", "php83Extensions.mbstring", "php83Extensions.openssl", "php83Extensions.session"]
+nixPkgs = ["php83"]
+nixLibs = ["php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.mysqli", "php83Extensions.mbstring", "php83Extensions.openssl", "php83Extensions.session"]
 
 [phases.install]
 cmds = [
   "php -v",
-  "php -m | grep -i pdo",
-  "php -m | grep -i mysql"
+  "php -m",
+  "php -i | grep -i pdo"
 ]
 
 [start]
-cmd = "php -c php.ini -S 0.0.0.0:8000 -t ."
+cmd = "php -d extension=pdo.so -d extension=pdo_mysql.so -S 0.0.0.0:8000 -t ."
