@@ -10,6 +10,9 @@ if (!isset($_SESSION['user_id'])) {
 // 連接資料庫
 require_once '../config/database.php';
 
+$database = new Database();
+$pdo = $database->getConnection();
+
 $user_id = $_SESSION['user_id'];
 
 // 獲取統計數據

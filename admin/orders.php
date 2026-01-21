@@ -90,306 +90,13 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂單管理 - 迴響電競</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin-dark.css">
     <style>
-        body { background: #f5f5f5; color: #333; }
-
-        .admin-header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            margin-bottom: 30px;
-        }
-
-        .admin-nav {
+        /* 訂單管理頁面使用 admin-dark.css 暗色主題 */
+        .admin-user-section {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .admin-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .admin-menu {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .admin-menu a {
-            color: #666;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .admin-menu a:hover,
-        .admin-menu a.active {
-            background: #f0f0f0;
-            color: #667eea;
-        }
-
-        .admin-user { color: #666; }
-        .logout-btn { color: #e74c3c; text-decoration: none; margin-left: 20px; }
-
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
-        }
-
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .page-title {
-            font-size: 2rem;
-            color: #333;
-        }
-
-        .filter-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .filter-form {
-            display: flex;
-            gap: 15px;
-            align-items: end;
-        }
-
-        .filter-group {
-            flex: 1;
-        }
-
-        .filter-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .filter-input,
-        .filter-select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .filter-btn {
-            padding: 10px 25px;
-            background: #667eea;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .filter-btn:hover {
-            background: #5568d3;
-        }
-
-        .clear-btn {
-            background: #999;
-        }
-
-        .clear-btn:hover {
-            background: #777;
-        }
-
-        .table-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table thead {
-            background: #f5f5f5;
-        }
-
-        .table th,
-        .table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .table th {
-            font-weight: 600;
-            color: #666;
-        }
-
-        .table tr:hover {
-            background: #f9f9f9;
-        }
-
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-pending { background: #fff3cd; color: #856404; }
-        .status-paid { background: #d4edda; color: #155724; }
-        .status-processing { background: #d1ecf1; color: #0c5460; }
-        .status-completed { background: #d4edda; color: #155724; }
-        .status-cancelled { background: #f8d7da; color: #721c24; }
-        .status-failed { background: #f8d7da; color: #721c24; }
-
-        .action-btn {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
-
-        .action-btn:hover {
-            text-decoration: underline;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 20px;
-        }
-
-        .page-link {
-            padding: 8px 15px;
-            background: white;
-            border: 1px solid #ddd;
-            color: #666;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .page-link:hover,
-        .page-link.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        /* 訂單詳情彈窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: #333;
-        }
-
-        .close-btn {
-            font-size: 1.5rem;
-            color: #999;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .detail-section {
-            margin-bottom: 20px;
-        }
-
-        .detail-title {
-            font-size: 1.1rem;
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .detail-row {
-            display: flex;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .detail-label {
-            width: 150px;
-            color: #666;
-        }
-
-        .detail-value {
-            flex: 1;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .status-select {
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .update-btn {
-            padding: 8px 20px;
-            background: #667eea;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .update-btn:hover {
-            background: #5568d3;
+            gap: 16px;
         }
     </style>
 </head>
@@ -402,14 +109,14 @@ if (isset($_GET['id'])) {
                 <li><a href="orders.php" class="active">訂單管理</a></li>
                 <li><a href="members.php">會員管理</a></li>
             </ul>
-            <div class="admin-user">
-                <span><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
-                <a href="index.php?action=logout" class="logout-btn">登出</a>
+            <div class="admin-user-section">
+                <span class="admin-user"><span><?php echo htmlspecialchars($_SESSION['admin_username']); ?></span>
+                <a href="index.php?action=logout" class="logout-btn">登出</a></span>
             </div>
         </nav>
     </header>
 
-    <div class="admin-container">
+    <div class="admin-content">
         <div class="page-header">
             <h1 class="page-title">訂單管理</h1>
         </div>
@@ -441,7 +148,7 @@ if (isset($_GET['id'])) {
 
         <!-- 訂單列表 -->
         <div class="table-card">
-            <table class="table">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>訂單編號</th>

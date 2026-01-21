@@ -35,9 +35,9 @@ if ($search) {
 }
 
 if ($status_filter === 'active') {
-    $where_conditions[] = "status = 'active'";
+    $where_conditions[] = "is_active = 1";
 } elseif ($status_filter === 'inactive') {
-    $where_conditions[] = "status = 'inactive'";
+    $where_conditions[] = "is_active = 0";
 }
 
 $where_sql = !empty($where_conditions) ? 'WHERE ' . implode(' AND ', $where_conditions) : '';
@@ -71,7 +71,7 @@ $total_pages = ceil($total_members / $per_page);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員管理 - 迴響電競</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin-dark.css">
     <style>
         body { background: #f5f5f5; color: #333; }
 
@@ -433,16 +433,16 @@ $total_pages = ceil($total_members / $per_page);
                                 <td><?php echo htmlspecialchars($member['email']); ?></td>
                                 <td><?php echo htmlspecialchars($member['phone'] ?? '-'); ?></td>
                                 <td>
-                                    <span class="status-badge status-<?php echo $member['status']; ?>">
-                                        <?php echo $member['status'] === 'active' ? '啟用' : '停用'; ?>
+                                    <span class="status-badge <?php echo $member['is_active'] ? 'status-active' : 'status-inactive'; ?>">
+                                        <?php echo $member['is_active'] ? '啟用' : '停用'; ?>
                                     </span>
                                 </td>
                                 <td><?php echo date('Y/m/d H:i', strtotime($member['created_at'])); ?></td>
                                 <td>
                                     <a href="#" class="action-btn" onclick="showMemberDetail(<?php echo $member['id']; ?>); return false;">查看</a>
-                                    <a href="#" class="action-btn <?php echo $member['status'] === 'active' ? 'danger' : ''; ?>"
-                                       onclick="toggleMemberStatus(<?php echo $member['id']; ?>, '<?php echo $member['status']; ?>'); return false;">
-                                        <?php echo $member['status'] === 'active' ? '停用' : '啟用'; ?>
+                                    <a href="#" class="action-btn <?php echo $member['is_active'] ? 'danger' : ''; ?>"
+                                       onclick="toggleMemberStatus(<?php echo $member['id']; ?>, <?php echo $member['is_active'] ? 1 : 0; ?>); return false;">
+                                        <?php echo $member['is_active'] ? '停用' : '啟用'; ?>
                                     </a>
                                 </td>
                             </tr>
